@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Diri | Personal Portfolio</title>
+
+    <style>
+        /* PENGATURAN DASAR */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --background: #0b1020;
+            --card: #151d33;
+            --primary: #8b5cf6;
+            --secondary: #38bdf8;
+            --text: #f1f5f9;
+            --muted: #a8b3c7;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* NAVIGASI */
+        header {
+            background: rgba(11, 16, 32, 0.95);
+            border-bottom: 1px solid #283149;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav {
+            min-height: 75px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.35rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--muted);
+            transition: 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary);
+        }
+
+        .menu-toggle {
+            display: none;
+            border: 1px solid #38445f;
+            background: var(--card);
+            color: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        /* BAGIAN BERANDA */
+        .hero {
+            min-height: 570px;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            background:
+                radial-gradient(circle at 85% 25%, #38236b 0, transparent 30%),
+                radial-gradient(circle at 15% 80%, #123b57 0, transparent 28%);
+        }
+
+        .hero-content {
+            max-width: 760px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #202a45;
+            color: #93c5fd;
+            border: 1px solid #354365;
+            padding: 7px 14px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--secondary);
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 650px;
+            margin-bottom: 28px;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(100deg, var(--primary), #4f7df3);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px #6546ca55;
+        }
+
+        .button-outline {
+            background: transparent;
+            border: 1px solid #64748b;
+            margin-left: 10px;
+        }
+
+        /* BAGIAN UMUM */
+        section {
+            padding: 80px 0;
+            scroll-margin-top: 75px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .section-description {
+            text-align: center;
+            color: var(--muted);
+            max-width: 650px;
+            margin: 0 auto 38px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 25px;
+            align-items: stretch;
+        }
+
+        .profile-card,
+        .info-card,
+        .skill-card,
+        .contact-card {
+            background: var(--card);
+            border: 1px solid #283650;
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        .profile-card {
+            text-align: center;
+        }
+
+        .avatar {
+           width: 200px;
+      height: 200px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border: 5px solid #293650;
+    transform: scale(1.20);
+        }
+
+        .profile-card p,
+        .info-card p,
+        .skill-card p,
+        .contact-card p {
+            color: var(--muted);
+        }
+
+        .info-card h3,
+        .skill-card h3,
+        .contact-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 7px 0;
+            border-bottom: 1px solid #29344c;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* BAGIAN HOBI */
+        .hobby-grid,
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .hobby-card {
+            background: var(--card);
+            border: 1px solid #283650;
+            border-radius: 16px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .hobby-card:hover,
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .hobby-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .hobby-card p {
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        /* BAGIAN KETERAMPILAN */
+        .skill-card {
+            transition: 0.3s;
+        }
+
+        .skill-label {
+            display: inline-block;
+            background: #27304b;
+            color: #c4b5fd;
+            border-radius: 7px;
+            padding: 5px 10px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        /* BAGIAN KONTAK */
+        .contact-card {
+            max-width: 720px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .contact-card .button {
+            margin-top: 20px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid #283149;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE UNTUK HP */
+        @media (max-width: 760px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                right: 0;
+                background: #11182b;
+                padding: 22px 5%;
+                flex-direction: column;
+                align-items: flex-start;
+                border-bottom: 1px solid #283149;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .about-grid,
+            .hobby-grid,
+            .skill-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: 500px;
+                padding: 60px 0;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .button-outline {
+                margin: 12px 0 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGASI WEBSITE -->
+    <header>
+        <nav class="container">
+            <a href="#beranda" class="logo">My<span>Profile</span></a>
+
+            <button class="menu-toggle"
+                id="menuToggle"
+                aria-label="Buka menu navigasi"
+                aria-expanded="false">
+                ☰ Menu
+            </button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#tentang">Tentang Saya</a></li>
+                <li><a href="#hobi">Hobi</a></li>
+                <li><a href="#skill">Keterampilan</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- BAGIAN BERANDA -->
+    <main>
+        <section class="hero" id="beranda">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="tag">✨ Selamat Datang di Website Saya</span>
+
+                    <h1>
+                        Halo, Saya <span class="highlight">Ceca</span>
+                    </h1>
+
+                    <p>
+                        Saya mahasiswa Teknik Logistik yang tertarik
+                        pada teknologi dan pengembangan diri.
+                        Website ini merupakan halaman perkenalan diri
+                        sekaligus latihan saya dalam mempelajari HTML dan CSS.
+                    </p>
+
+                    <a href="#tentang" class="button">Kenali Saya</a>
+                    <a href="#kontak" class="button button-outline">
+                        Hubungi Saya
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN TENTANG SAYA -->
+        <section id="tentang">
+            <div class="container">
+                <h2 class="section-title">Tentang Saya</h2>
+                <p class="section-description">
+                    Sedikit informasi mengenai diri, minat, dan tujuan saya.
+                </p>
+
+                <div class="about-grid">
+                    <div class="profile-card">
+                        <img
+                            src="images/foto-profil.jpeg"
+                            alt="Foto profil saya"
+                             class="avatar"
+>
+                        <h3>Ceca Dafi Nur Rakhmadi</h3>
+                        <p>Mahasiswa Teknik Logistik</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Profil Singkat</h3>
+                        <p>
+                            Saya adalah mahasiswa yang senang mempelajari
+                            hal-hal baru. Saat ini, saya sedang mempelajari
+                            dasar pengembangan website untuk menambah
+                            pengetahuan dan keterampilan digital.
+                        </p>
+
+                        <br>
+
+                        <ul class="info-list">
+                            <li><strong>Nama:</strong> Ceca Dafi Nur Rakhmadi</li>
+                            <li><strong>Program Studi:</strong> Teknik Logistik</li>
+                            <li><strong>Universitas:</strong> Universitas Pendidikan Indonesia</li>
+                            <li><strong>Minat:</strong> Teknologi </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN HOBI -->
+        <section id="hobi">
+            <div class="container">
+                <h2 class="section-title">Hobi dan Minat</h2>
+                <p class="section-description">
+                    Aktivitas yang saya sukai untuk mengisi waktu
+                    sekaligus mengembangkan diri.
+                </p>
+
+                <div class="hobby-grid">
+                    <div class="hobby-card">
+                        <div class="hobby-icon">💻</div>
+                        <h3>Teknologi</h3>
+                        <p>
+                            Mempelajari perkembangan teknologi dan
+                            mencoba hal baru di dunia digital.
+                        </p>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon">🎮</div>
+                        <h3>Bermain Game</h3>
+                        <p>
+                            Menikmati permainan digital untuk hiburan
+                            dan melatih strategi.
+                        </p>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon">📚</div>
+                        <h3>Belajar</h3>
+                        <p>
+                            Menambah wawasan melalui materi kuliah,
+                            bacaan, dan latihan mandiri.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN KETERAMPILAN -->
+        <section id="skill">
+            <div class="container">
+                <h2 class="section-title">Keterampilan</h2>
+                <p class="section-description">
+                    Beberapa bidang yang sedang saya pelajari
+                    dan kembangkan.
+                </p>
+
+                <div class="skill-grid">
+                    <div class="skill-card">
+                        <h3>🌐 HTML</h3>
+                        <p>
+                            Mempelajari struktur dasar halaman website
+                            dan penggunaan elemen HTML.
+                        </p>
+                        <span class="skill-label">Sedang Belajar</span>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>🎨 CSS</h3>
+                        <p>
+                            Mempelajari warna, tata letak, tipografi,
+                            dan desain website responsif.
+                        </p>
+                        <span class="skill-label">Sedang Belajar</span>
+                    </div>
+
+                    <div class="skill-card">
+                        <h3>🧩 Problem Solving</h3>
+                        <p>
+                            Berlatih menyelesaikan masalah melalui
+                            proses berpikir yang sistematis.
+                        </p>
+                        <span class="skill-label">Terus Berkembang</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN KONTAK -->
+        <section id="kontak">
+            <div class="container">
+                <h2 class="section-title">Hubungi Saya</h2>
+                <p class="section-description">
+                    Terima kasih telah mengunjungi website profil saya.
+                </p>
+
+                <div class="contact-card">
+                    <h3>Mari Terhubung!</h3>
+                    <p>
+                        Kamu dapat menghubungi saya pada tombol dibawah ini.
+                    </p>
+
+                    <a class="button"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=cecadafi8@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Kirim Email
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- BAGIAN PENUTUP -->
+    <footer>
+        <div class="container">
+            <p>
+                &copy; 2026 Ceca Dafi Nur Rakhmadi.
+                Dibuat sebagai proyek tugas Pengantar Web.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT UNTUK MENU HP -->
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const navMenu = document.getElementById("navMenu");
+
+        menuToggle.addEventListener("click", function () {
+            navMenu.classList.toggle("active");
+
+            const menuTerbuka = navMenu.classList.contains("active");
+            menuToggle.setAttribute("aria-expanded", menuTerbuka);
+        });
+
+        document.querySelectorAll(".nav-menu a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navMenu.classList.remove("active");
+                menuToggle.setAttribute("aria-expanded", "false");
+            });
+        });
+    </script>
+
+</body>
+</html>
+```
